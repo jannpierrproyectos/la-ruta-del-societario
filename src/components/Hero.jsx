@@ -88,7 +88,7 @@ function Hero({ totalResources, visibleStationIds = heroStations.map(([id]) => i
         </div>
 
         <div className="relative z-10 flex items-center lg:justify-end">
-          <div className="relative w-full max-w-xl overflow-hidden rounded-lg border border-gold/25 bg-ink p-3 text-white shadow-soft sm:p-6">
+          <div className="relative w-full max-w-xl overflow-visible rounded-lg border border-gold/25 bg-ink p-3 text-white shadow-soft sm:overflow-hidden sm:p-6">
             <div className="absolute -right-16 -top-16 h-44 w-44 rounded-full border border-gold/30" aria-hidden="true" />
             <div className="absolute bottom-0 left-0 h-24 w-full bg-gradient-to-t from-gold/10 to-transparent" aria-hidden="true" />
 
@@ -107,37 +107,40 @@ function Hero({ totalResources, visibleStationIds = heroStations.map(([id]) => i
               </div>
             </div>
 
-            <div className="relative mt-3 sm:mt-6">
+            <div className="relative mt-3 min-w-0 sm:mt-6">
               <div className="absolute left-6 top-6 hidden h-0.5 w-[calc(100%-3rem)] bg-gradient-to-r from-gold via-white/20 to-gold/70 md:block" />
-              <div className="-mx-1 flex snap-x gap-2 overflow-x-auto px-1 pb-1 md:mx-0 md:grid md:grid-cols-5 md:gap-3 md:overflow-visible md:px-0 md:pb-0">
-                {displayedHeroStations.map(([id, number, label], index) => {
-                  const isActive = activeId === id
+              <div className="-mx-1 overflow-x-auto overscroll-x-contain scroll-smooth px-1 pb-2 pr-8 [scroll-padding-inline:0.25rem] md:mx-0 md:overflow-visible md:px-0 md:pb-0 md:pr-0">
+                <div className="flex w-max min-w-max snap-x snap-mandatory gap-2 pr-8 md:grid md:w-auto md:min-w-0 md:grid-cols-5 md:gap-3 md:pr-0">
+                  {displayedHeroStations.map(([id, number, label], index) => {
+                    const isActive = activeId === id
 
-                  return (
-                    <a
-                      key={id}
-                      href={`#${id}`}
-                      aria-current={isActive ? 'location' : undefined}
-                      className={`relative min-w-[8.4rem] snap-start rounded-md border p-2.5 text-left backdrop-blur transition duration-200 hover:-translate-y-0.5 hover:border-gold/70 hover:bg-white/[0.10] focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2 focus:ring-offset-ink sm:min-w-[9.2rem] sm:p-3 md:min-w-0 ${
-                        isActive ? 'border-gold/70 bg-white/[0.12] shadow-soft' : 'border-white/10 bg-white/[0.06]'
-                      }`}
-                    >
-                      <span
-                        className={`flex h-9 w-9 items-center justify-center rounded-full border text-xs font-black transition sm:h-11 sm:w-11 sm:text-sm ${
-                          isActive
-                            ? 'border-gold bg-gold text-ink'
-                            : 'border-gold/60 bg-ink text-gold'
+                    return (
+                      <a
+                        key={id}
+                        href={`#${id}`}
+                        aria-current={isActive ? 'location' : undefined}
+                        className={`relative w-36 shrink-0 snap-start rounded-md border p-2.5 text-left backdrop-blur transition duration-200 hover:-translate-y-0.5 hover:border-gold/70 hover:bg-white/[0.10] focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2 focus:ring-offset-ink sm:w-40 sm:p-3 md:w-auto md:shrink ${
+                          isActive ? 'border-gold/70 bg-white/[0.12] shadow-soft' : 'border-white/10 bg-white/[0.06]'
                         }`}
                       >
-                        {number}
-                      </span>
-                      <p className="mt-2 text-xs font-bold leading-tight text-white sm:mt-3 sm:text-sm">{label}</p>
-                      <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.1em] text-white/45 sm:text-[11px] sm:tracking-[0.12em]">
-                        Tramo {index + 1}
-                      </p>
-                    </a>
-                  )
-                })}
+                        <span
+                          className={`flex h-9 w-9 items-center justify-center rounded-full border text-xs font-black transition sm:h-11 sm:w-11 sm:text-sm ${
+                            isActive
+                              ? 'border-gold bg-gold text-ink'
+                              : 'border-gold/60 bg-ink text-gold'
+                          }`}
+                        >
+                          {number}
+                        </span>
+                        <p className="mt-2 text-xs font-bold leading-tight text-white sm:mt-3 sm:text-sm">{label}</p>
+                        <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.1em] text-white/45 sm:text-[11px] sm:tracking-[0.12em]">
+                          Tramo {index + 1}
+                        </p>
+                      </a>
+                    )
+                  })}
+                  <span className="block w-10 shrink-0 md:hidden" aria-hidden="true" />
+                </div>
               </div>
             </div>
 
