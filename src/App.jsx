@@ -23,6 +23,8 @@ function App() {
     [],
   )
 
+  const hasActiveFilter = activeFilter !== 'Todos' || query.trim() !== ''
+
   const filteredStations = useMemo(() => {
     const normalizedQuery = normalize(query.trim())
 
@@ -54,12 +56,16 @@ function App() {
   }, [activeFilter, query])
 
   const visibleResources = filteredStations.reduce((sum, station) => sum + station.resources.length, 0)
+  const renderedStations = hasActiveFilter
+    ? filteredStations.filter((station) => station.resources.length > 0)
+    : filteredStations
+  const visibleStationIds = renderedStations.map((station) => station.id)
 
   return (
-    <div className="min-h-screen text-ink">
-      <Hero totalResources={totalResources} />
-      <main className="mx-auto w-full max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
-        <RouteNav stations={stations} />
+    <div className="min-h-screen overflow-x-hidden text-ink">
+      <Hero totalResources={totalResources} visibleStationIds={visibleStationIds} />
+      <main className="mx-auto w-full max-w-7xl px-3 pb-12 sm:px-6 sm:pb-16 lg:px-8">
+        <RouteNav stations={renderedStations} />
         <SearchFilters
           activeFilter={activeFilter}
           filters={filterOptions}
@@ -71,17 +77,19 @@ function App() {
         />
 
         {visibleResources > 0 ? (
-          <div className="route-line mt-10 space-y-10 lg:mt-14 lg:space-y-16">
-            {filteredStations.map((station) => (
+          <div className="route-line mt-7 space-y-7 sm:mt-10 sm:space-y-10 lg:mt-14 lg:space-y-16">
+            {renderedStations.map((station) => (
               <ResourceSection key={station.id} station={station} />
             ))}
           </div>
         ) : (
-          <section className="mt-10 rounded-lg border border-dashed border-gold/35 bg-white/78 px-6 py-14 text-center shadow-soft">
-            <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-amberSoft text-gold">
+          <section className="mt-8 rounded-lg border border-dashed border-gold/35 bg-white/78 px-5 py-10 text-center shadow-soft sm:mt-10 sm:px-6 sm:py-14">
+            <div className="mx-auto flex h-11 w-11 items-center justify-center rounded-full bg-amberSoft text-gold sm:h-12 sm:w-12">
               <Compass size={22} aria-hidden="true" />
             </div>
-            <h2 className="mt-5 text-2xl font-bold text-ink">No hay recursos para esta búsqueda</h2>
+            <h2 className="mt-5 text-xl font-bold text-ink sm:text-2xl">
+              No se encontraron recursos con los filtros actuales.
+            </h2>
             <p className="mx-auto mt-3 max-w-xl text-sm leading-6 text-coal/75">
               Ajusta el término de búsqueda o cambia el filtro para retomar la ruta.
             </p>

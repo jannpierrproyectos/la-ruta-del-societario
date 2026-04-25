@@ -29,9 +29,9 @@ const typeStyles = {
 }
 
 const logoSizeClasses = {
-  normal: 'max-h-11 max-w-12',
-  large: 'max-h-[3.25rem] max-w-[3.5rem]',
-  wide: 'max-h-12 max-w-[3.75rem]',
+  normal: 'max-h-10 max-w-11 sm:max-h-11 sm:max-w-12',
+  large: 'max-h-11 max-w-12 sm:max-h-[3.25rem] sm:max-w-[3.5rem]',
+  wide: 'max-h-10 max-w-[3.2rem] sm:max-h-12 sm:max-w-[3.75rem]',
 }
 
 const getKind = (resource) => {
@@ -72,10 +72,10 @@ function ResourceCard({ resource }) {
   }
 
   return (
-    <article className="group relative flex min-h-[250px] flex-col overflow-hidden rounded-lg border border-line bg-white p-5 transition duration-200 hover:-translate-y-1 hover:border-gold/65 hover:shadow-soft">
+    <article className="group relative flex min-h-[220px] flex-col overflow-hidden rounded-lg border border-line bg-white p-4 transition duration-200 hover:-translate-y-1 hover:border-gold/65 hover:shadow-soft sm:min-h-[250px] sm:p-5">
       <div className={`absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r ${style.accent}`} />
       <div className="flex items-start justify-between gap-3">
-        <div className="flex h-14 w-16 shrink-0 items-center justify-center rounded-lg border border-gold/25 bg-[#fff4d6] text-ink shadow-[inset_0_1px_0_rgba(255,255,255,0.65)] ring-1 ring-gold/20">
+        <div className="flex h-12 w-14 shrink-0 items-center justify-center rounded-lg border border-gold/25 bg-[#fff4d6] text-ink shadow-[inset_0_1px_0_rgba(255,255,255,0.65)] ring-1 ring-gold/20 sm:h-14 sm:w-16">
           {showLogo ? (
             <img
               className={`${logoClassName} object-contain`}
@@ -85,29 +85,29 @@ function ResourceCard({ resource }) {
               onError={() => setLogoFailed(true)}
             />
           ) : (
-            <Icon size={29} strokeWidth={1.8} aria-hidden="true" />
+            <Icon size={27} strokeWidth={1.8} aria-hidden="true" />
           )}
         </div>
-        <span className={`rounded-full border px-2.5 py-1 text-[11px] font-black uppercase tracking-[0.08em] ${style.badge}`}>
+        <span className={`rounded-full border px-2 py-1 text-[10px] font-black uppercase tracking-[0.08em] sm:px-2.5 sm:text-[11px] ${style.badge}`}>
           {resource.type}
         </span>
       </div>
 
-      <h3 className="mt-5 text-xl font-black leading-snug text-ink">{resource.name}</h3>
-      <p className="mt-2 flex-1 text-sm leading-6 text-coal/75">{resource.description}</p>
+      <h3 className="mt-4 text-lg font-black leading-snug text-ink sm:mt-5 sm:text-xl">{resource.name}</h3>
+      <p className="mt-2 flex-1 text-sm leading-5 text-coal/75 sm:leading-6">{resource.description}</p>
 
       {resource.commands ? (
-        <div className="mt-4 rounded-lg border border-gold/20 bg-ink p-3 font-mono text-xs leading-5 text-amberSoft shadow-inner">
+        <div className="mt-3 rounded-lg border border-gold/20 bg-ink p-3 font-mono text-xs leading-5 text-amberSoft shadow-inner sm:mt-4">
           {resource.commands.map((command) => (
             <div key={command}>{command}</div>
           ))}
         </div>
       ) : null}
 
-      <div className="mt-5 flex flex-wrap gap-2">
+      <div className="mt-4 flex flex-wrap gap-2 sm:mt-5">
         {resource.link ? (
           <a
-            className="inline-flex items-center gap-2 rounded-full bg-ink px-4 py-2.5 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-coal focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2"
+            className="inline-flex items-center gap-2 rounded-full bg-ink px-3.5 py-2 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-coal focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2 sm:px-4 sm:py-2.5"
             href={resource.link}
             target="_blank"
             rel="noopener noreferrer"
@@ -118,7 +118,7 @@ function ResourceCard({ resource }) {
         ) : null}
         {resource.commands ? (
           <button
-            className="inline-flex items-center gap-2 rounded-full border border-line bg-paper px-4 py-2.5 text-sm font-bold text-ink transition hover:border-gold/70 hover:bg-amberSoft focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2"
+            className="inline-flex items-center gap-2 rounded-full border border-line bg-paper px-3.5 py-2 text-sm font-bold text-ink transition hover:border-gold/70 hover:bg-amberSoft focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2 sm:px-4 sm:py-2.5"
             onClick={copyCommands}
             type="button"
           >

@@ -4,6 +4,8 @@ function RouteNav({ stations }) {
   const [activeId, setActiveId] = useState(stations[0]?.id)
 
   useEffect(() => {
+    setActiveId(stations[0]?.id)
+
     const observer = new IntersectionObserver(
       (entries) => {
         const visible = entries
@@ -28,9 +30,9 @@ function RouteNav({ stations }) {
   return (
     <nav
       id="ruta"
-      className="sticky top-0 z-20 -mx-4 border-b border-gold/15 bg-[#f6efe2]/92 px-4 py-3 backdrop-blur sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8"
+      className="sticky top-0 z-20 -mx-3 border-b border-gold/15 bg-[#f6efe2]/92 px-3 py-2 backdrop-blur sm:-mx-6 sm:px-6 sm:py-3 lg:-mx-8 lg:px-8"
     >
-      <div className="mx-auto flex max-w-7xl gap-2 overflow-x-auto rounded-full border border-line bg-white/65 p-1 shadow-soft">
+      <div className="mx-auto flex max-w-7xl gap-1.5 overflow-x-auto rounded-full border border-line bg-white/65 p-1 shadow-soft sm:gap-2">
         {stations.map((station) => {
           const isActive = activeId === station.id
 
@@ -38,11 +40,11 @@ function RouteNav({ stations }) {
             <a
               key={station.id}
               href={`#${station.id}`}
-              className={`group inline-flex min-w-max items-center gap-2 rounded-full px-3 py-2 text-sm font-black transition ${
+              className={`group inline-flex min-w-max items-center gap-1.5 rounded-full px-2.5 py-1.5 text-xs font-black transition sm:gap-2 sm:px-3 sm:py-2 sm:text-sm ${
                 isActive ? 'bg-ink text-white shadow-soft' : 'text-coal/75 hover:bg-amberSoft hover:text-ink'
               }`}
             >
-              <span className={`rounded-full px-2 py-0.5 text-xs ${isActive ? 'bg-gold text-ink' : 'bg-paper text-gold'}`}>
+              <span className={`rounded-full px-1.5 py-0.5 text-[11px] sm:px-2 sm:text-xs ${isActive ? 'bg-gold text-ink' : 'bg-paper text-gold'}`}>
                 {station.number}
               </span>
               <span>{station.title}</span>
