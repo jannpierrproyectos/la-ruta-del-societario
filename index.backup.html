@@ -1,0 +1,1534 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="La Ruta del Societario: recursos académicos SCSF/CPA para investigación científica en salud.">
+  <title>La Ruta del Societario | SCSF CPA</title>
+  <style>
+    :root {
+      --gold: #f4c430;
+      --gold-dark: #c99a12;
+      --ink: #171717;
+      --charcoal: #252525;
+      --muted: #666a70;
+      --line: #dedede;
+      --soft: #f4f4f2;
+      --white: #ffffff;
+      --shadow: 0 14px 30px rgba(20, 20, 20, 0.08);
+      --shadow-soft: 0 6px 18px rgba(20, 20, 20, 0.06);
+      --radius: 14px;
+      --container: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: #f5f5f2;
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    body.modal-open {
+      overflow: hidden;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    img,
+    svg {
+      max-width: 100%;
+    }
+
+    .page-shell {
+      min-height: 100vh;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background: #202020;
+      color: var(--white);
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 5px;
+      background: linear-gradient(90deg, var(--gold), transparent 72%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      width: min(100% - 32px, var(--container));
+      margin: 0 auto;
+      padding: 26px 0 34px;
+    }
+
+    .brand-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 30px;
+    }
+
+    .brand-row > div,
+    .hero-copy,
+    .section-header > div,
+    .resource-card,
+    .card-top {
+      min-width: 0;
+    }
+
+    .brand-lockup,
+    .footer-logos {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .brand-logo {
+      display: grid;
+      place-items: center;
+      width: 58px;
+      min-width: 58px;
+      height: 58px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.16);
+      padding: 8px;
+    }
+
+    .brand-logo img,
+    .footer-logo img {
+      display: block;
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    .brand-kicker {
+      margin: 0;
+      color: var(--gold);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .brand-name {
+      margin: 2px 0 0;
+      font-weight: 800;
+      color: rgba(255, 255, 255, 0.86);
+      overflow-wrap: anywhere;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .hero-copy h1 {
+      max-width: 760px;
+      margin: 0;
+      font-size: clamp(2.4rem, 7vw, 4.8rem);
+      line-height: 1;
+      letter-spacing: 0;
+      font-weight: 900;
+      overflow-wrap: anywhere;
+    }
+
+    .hero-subtitle {
+      margin: 16px 0 0;
+      color: var(--gold);
+      font-size: clamp(0.98rem, 1.7vw, 1.18rem);
+      font-weight: 800;
+    }
+
+    .hero-description {
+      max-width: 720px;
+      margin: 10px 0 0;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 1rem;
+    }
+
+    .hero-panel {
+      display: flex;
+      gap: 18px;
+      border-left: 3px solid rgba(244, 196, 48, 0.75);
+      padding: 10px 0 10px 18px;
+    }
+
+    .hero-stat {
+      display: grid;
+      gap: 2px;
+      margin-bottom: 0;
+    }
+
+    .hero-stat strong {
+      color: var(--gold);
+      font-size: 1.55rem;
+      line-height: 1;
+      font-weight: 900;
+      overflow-wrap: anywhere;
+    }
+
+    .hero-stat span {
+      color: rgba(255, 255, 255, 0.78);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+    }
+
+    .main-nav-wrap {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      background: rgba(250, 250, 248, 0.94);
+      border-bottom: 1px solid rgba(20, 20, 20, 0.08);
+      backdrop-filter: blur(16px);
+    }
+
+    .main-nav {
+      width: min(100% - 32px, var(--container));
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      overflow-x: visible;
+      padding: 10px 0;
+      scrollbar-width: none;
+    }
+
+    .main-nav::-webkit-scrollbar,
+    .filters::-webkit-scrollbar {
+      display: none;
+    }
+
+    .nav-button,
+    .filter-button {
+      border: 1px solid var(--line);
+      background: var(--white);
+      color: var(--charcoal);
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 0.84rem;
+      font-weight: 800;
+      white-space: nowrap;
+      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, color 180ms ease, box-shadow 180ms ease;
+    }
+
+    .nav-button {
+      padding: 8px 13px;
+    }
+
+    .filter-button {
+      padding: 7px 11px;
+    }
+
+    .nav-button:hover,
+    .filter-button:hover,
+    .nav-button:focus-visible,
+    .filter-button:focus-visible {
+      border-color: var(--gold-dark);
+      box-shadow: 0 5px 14px rgba(20, 20, 20, 0.06);
+      outline: none;
+      transform: translateY(-1px);
+    }
+
+    .nav-button.active,
+    .filter-button.active {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: var(--gold);
+      box-shadow: 0 8px 18px rgba(20, 20, 20, 0.1);
+    }
+
+    main {
+      width: min(100% - 32px, var(--container));
+      margin: 0 auto;
+      padding: 24px 0 50px;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: minmax(260px, 1fr) auto;
+      gap: 14px;
+      align-items: center;
+      margin: 0 0 24px;
+    }
+
+    .search-box {
+      position: relative;
+    }
+
+    .search-box svg {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 20px;
+      height: 20px;
+      color: #7a7a7a;
+      pointer-events: none;
+    }
+
+    .search-box input {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 13px 18px 13px 46px;
+      background: var(--white);
+      color: var(--ink);
+      box-shadow: none;
+      outline: none;
+      transition: border-color 180ms ease, box-shadow 180ms ease;
+    }
+
+    .search-box input:focus {
+      border-color: var(--gold-dark);
+      box-shadow: 0 0 0 3px rgba(244, 196, 48, 0.2);
+    }
+
+    .filters {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      scrollbar-width: none;
+    }
+
+    .section-stage {
+      animation: fadeUp 260ms ease both;
+    }
+
+    .section-header {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 18px;
+      align-items: end;
+      margin: 8px 0 22px;
+    }
+
+    .section-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 10px;
+      color: var(--gold-dark);
+      font-size: 0.74rem;
+      font-weight: 900;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .section-eyebrow::before {
+      content: "";
+      width: 38px;
+      height: 4px;
+      border-radius: 4px;
+      background: var(--gold);
+    }
+
+    .section-title {
+      margin: 0;
+      color: var(--charcoal);
+      font-size: clamp(1.8rem, 4.2vw, 3.45rem);
+      line-height: 1.04;
+      letter-spacing: 0;
+      font-weight: 900;
+    }
+
+    .resource-band {
+      display: inline-flex;
+      justify-content: center;
+      min-width: 134px;
+      border-radius: 999px;
+      background: var(--gold);
+      color: var(--ink);
+      padding: 8px 16px;
+      font-size: 0.74rem;
+      font-weight: 900;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.14);
+    }
+
+    .section-count {
+      color: var(--muted);
+      margin: 8px 0 0;
+      font-weight: 700;
+    }
+
+    .group {
+      margin-top: 26px;
+    }
+
+    .group-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 0 0 16px;
+      color: var(--charcoal);
+      font-size: 1.05rem;
+      font-weight: 900;
+    }
+
+    .group-title::after {
+      content: "";
+      height: 1px;
+      flex: 1;
+      background: linear-gradient(90deg, rgba(201, 154, 18, 0.7), transparent);
+    }
+
+    .resource-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .resource-card {
+      display: flex;
+      flex-direction: column;
+      min-height: 248px;
+      border: 1px solid rgba(20, 20, 20, 0.09);
+      border-radius: var(--radius);
+      background: var(--white);
+      padding: 17px;
+      box-shadow: none;
+      transition: transform 190ms ease, box-shadow 190ms ease, border-color 190ms ease;
+      animation: cardIn 260ms ease both;
+    }
+
+    .resource-card:hover,
+    .resource-card:focus-within {
+      transform: translateY(-3px);
+      border-color: rgba(201, 154, 18, 0.36);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .resource-mark {
+      display: grid;
+      place-items: center;
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      border: 1px solid rgba(20, 20, 20, 0.08);
+      background: #fff9df;
+      color: var(--charcoal);
+      font-weight: 900;
+      overflow: hidden;
+    }
+
+    .resource-mark img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 9px;
+    }
+
+    .resource-mark svg {
+      width: 26px;
+      height: 26px;
+    }
+
+    .type-chip {
+      border-radius: 999px;
+      background: #f1f1ef;
+      color: #3e3e3e;
+      padding: 5px 9px;
+      font-size: 0.66rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      text-align: right;
+      max-width: 58%;
+      white-space: normal;
+    }
+
+    .resource-card h3 {
+      margin: 0;
+      font-size: 1.06rem;
+      line-height: 1.22;
+      font-weight: 900;
+    }
+
+    .resource-card p {
+      margin: 10px 0 16px;
+      color: var(--muted);
+      font-size: 0.91rem;
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: auto;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .resource-button,
+    .copy-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 0;
+      border-radius: 999px;
+      min-height: 38px;
+      padding: 9px 13px;
+      background: var(--ink);
+      color: var(--white);
+      text-decoration: none;
+      cursor: pointer;
+      font-size: 0.84rem;
+      font-weight: 900;
+      transition: background 180ms ease, color 180ms ease, transform 180ms ease;
+    }
+
+    .resource-button:hover,
+    .copy-button:hover,
+    .resource-button:focus-visible,
+    .copy-button:focus-visible {
+      background: var(--gold);
+      color: var(--ink);
+      outline: none;
+      transform: translateY(-1px);
+    }
+
+    .resource-button svg,
+    .copy-button svg {
+      width: 17px;
+      height: 17px;
+    }
+
+    .code-card {
+      border-color: rgba(244, 196, 48, 0.5);
+      background: #fffdf7;
+    }
+
+    .code-block {
+      width: 100%;
+      border: 1px solid rgba(20, 20, 20, 0.12);
+      border-radius: 14px;
+      background: #191919;
+      color: #f5f5f5;
+      padding: 12px;
+      margin: 0 0 14px;
+      overflow-x: auto;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 0.86rem;
+      line-height: 1.6;
+    }
+
+    .empty-state {
+      display: none;
+      border: 1px dashed rgba(20, 20, 20, 0.22);
+      border-radius: var(--radius);
+      padding: 32px;
+      background: rgba(255, 255, 255, 0.68);
+      color: var(--muted);
+      text-align: center;
+      font-weight: 700;
+    }
+
+    .empty-state.show {
+      display: block;
+    }
+
+    .site-footer {
+      background: #151515;
+      color: var(--white);
+      padding: 28px 0;
+    }
+
+    .footer-inner {
+      width: min(100% - 32px, var(--container));
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .footer-logo {
+      display: grid;
+      place-items: center;
+      width: 60px;
+      height: 60px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.94);
+      padding: 10px;
+    }
+
+    .footer-title {
+      margin: 0;
+      color: var(--gold);
+      font-size: 1.05rem;
+      font-weight: 900;
+    }
+
+    .footer-copy {
+      margin: 5px 0 0;
+      color: rgba(255, 255, 255, 0.68);
+      font-size: 0.92rem;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 24px;
+      z-index: 60;
+      transform: translate(-50%, 20px);
+      border-radius: 999px;
+      background: var(--ink);
+      color: var(--gold);
+      padding: 12px 18px;
+      font-weight: 900;
+      opacity: 0;
+      pointer-events: none;
+      box-shadow: var(--shadow);
+      transition: opacity 200ms ease, transform 200ms ease;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes cardIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .controls,
+      .section-header {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-inner {
+        padding: 24px 0 30px;
+      }
+
+      .brand-row {
+        margin-bottom: 24px;
+      }
+
+      .hero-panel {
+        max-width: 520px;
+        width: 100%;
+      }
+
+      .main-nav {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 12px;
+      }
+
+      .filters {
+        justify-content: flex-start;
+      }
+
+      .resource-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .resource-card {
+        min-height: 232px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      body {
+        overflow-x: hidden;
+      }
+
+      .hero-inner {
+        padding-top: 18px;
+        padding-bottom: 24px;
+      }
+
+      .brand-row {
+        align-items: flex-start;
+        justify-content: flex-start;
+        gap: 12px;
+        margin-bottom: 22px;
+      }
+
+      .brand-row > div:last-child {
+        max-width: calc(100% - 112px);
+      }
+
+      .brand-lockup {
+        gap: 8px;
+      }
+
+      .brand-logo,
+      .footer-logo {
+        width: 46px;
+        min-width: 46px;
+        height: 46px;
+        border-radius: 10px;
+        padding: 6px;
+      }
+
+      .brand-kicker {
+        font-size: 0.68rem;
+      }
+
+      .brand-name {
+        font-size: 0.82rem;
+      }
+
+      .hero-grid {
+        gap: 18px;
+      }
+
+      .hero-copy h1 {
+        font-size: clamp(1.95rem, 10.5vw, 2.85rem);
+      }
+
+      .hero-subtitle {
+        margin-top: 12px;
+        font-size: 0.92rem;
+      }
+
+      .hero-description {
+        font-size: 0.92rem;
+      }
+
+      .hero-panel {
+        display: none;
+      }
+
+      .main-nav {
+        width: min(100% - 20px, var(--container));
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        gap: 7px;
+        padding: 8px 0 10px;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .nav-button,
+      .filter-button {
+        font-size: 0.76rem;
+      }
+
+      .nav-button {
+        padding: 7px 10px;
+      }
+
+      main,
+      .hero-inner,
+      .footer-inner {
+        width: min(100% - 24px, var(--container));
+      }
+
+      main {
+        padding: 18px 0 38px;
+      }
+
+      .controls {
+        gap: 10px;
+        margin-bottom: 18px;
+      }
+
+      .search-box svg {
+        left: 13px;
+        width: 18px;
+        height: 18px;
+      }
+
+      .search-box input {
+        padding: 11px 14px 11px 39px;
+        font-size: 0.9rem;
+      }
+
+      .filters {
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        overflow-x: auto;
+        padding-bottom: 4px;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .filter-button {
+        padding: 7px 10px;
+      }
+
+      .section-header {
+        gap: 12px;
+        margin-bottom: 18px;
+      }
+
+      .section-eyebrow {
+        margin-bottom: 8px;
+        font-size: 0.68rem;
+      }
+
+      .section-eyebrow::before {
+        width: 28px;
+        height: 3px;
+      }
+
+      .section-title {
+        font-size: clamp(1.55rem, 8.5vw, 2.18rem);
+      }
+
+      .resource-band {
+        justify-self: start;
+        min-width: 110px;
+        padding: 7px 13px;
+        font-size: 0.66rem;
+      }
+
+      .section-count {
+        font-size: 0.88rem;
+      }
+
+      .group {
+        margin-top: 22px;
+      }
+
+      .group-title {
+        font-size: 0.98rem;
+      }
+
+      .resource-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .resource-card {
+        min-height: auto;
+        padding: 14px;
+        border-radius: 12px;
+      }
+
+      .card-top {
+        align-items: center;
+        gap: 10px;
+      }
+
+      .resource-card:hover,
+      .resource-card:focus-within {
+        transform: none;
+      }
+
+      .resource-mark {
+        width: 44px;
+        height: 44px;
+      }
+
+      .type-chip {
+        font-size: 0.6rem;
+        padding: 4px 8px;
+        max-width: 64%;
+      }
+
+      .resource-card h3 {
+        font-size: 1rem;
+      }
+
+      .resource-card p {
+        font-size: 0.88rem;
+      }
+
+      .resource-button,
+      .copy-button {
+        min-height: 36px;
+        font-size: 0.8rem;
+        padding: 8px 12px;
+      }
+
+      .footer-inner {
+        align-items: flex-start;
+        gap: 18px;
+      }
+
+      .site-footer {
+        padding: 24px 0;
+      }
+
+      .footer-logos {
+        gap: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-shell">
+    <header class="hero">
+      <div class="hero-inner">
+        <div class="brand-row">
+          <div class="brand-lockup" aria-label="Logos institucionales">
+            <span class="brand-logo">
+              <img src="assets/logo-scsf.png" alt="Logo de la Sociedad Científica de San Fernando">
+            </span>
+            <span class="brand-logo">
+              <img src="assets/logo-cpa.png" alt="Logo del Comité Permanente Académico">
+            </span>
+          </div>
+          <div>
+            <p class="brand-kicker">SCSF | CPA</p>
+            <p class="brand-name">La Ruta del Societario</p>
+          </div>
+        </div>
+
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <h1>La Ruta del Societario</h1>
+            <p class="hero-subtitle">SCSF | Comité Permanente Académico</p>
+            <p class="hero-description">Guías, cursos, herramientas y tutoriales para investigación científica en salud.</p>
+          </div>
+          <aside class="hero-panel" aria-label="Resumen de recursos">
+            <div class="hero-stat">
+              <strong id="totalResources">0</strong>
+              <span>recursos curados</span>
+            </div>
+            <div class="hero-stat">
+              <strong>5</strong>
+              <span>secciones principales</span>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </header>
+
+    <nav class="main-nav-wrap" aria-label="Secciones de recursos">
+      <div class="main-nav" id="sectionNav"></div>
+    </nav>
+
+    <main>
+      <section class="controls" aria-label="Busqueda y filtros">
+        <label class="search-box">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="m21 21-4.35-4.35m2.35-5.15a7.5 7.5 0 1 1-15 0 7.5 7.5 0 0 1 15 0Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <input id="searchInput" type="search" placeholder="Buscar por nombre, tipo o sección..." autocomplete="off">
+        </label>
+        <div class="filters" id="filterBar" aria-label="Filtros rapidos"></div>
+      </section>
+
+      <section class="section-stage" id="resourceStage" aria-live="polite"></section>
+      <div class="empty-state" id="emptyState">No se encontraron recursos con la busqueda o filtro seleccionado.</div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div>
+          <p class="footer-title">La Ruta del Societario</p>
+          <p class="footer-copy">Comité Permanente Académico | SCSF</p>
+        </div>
+        <div class="footer-logos" aria-label="Logos institucionales en el footer">
+          <span class="footer-logo">
+            <img src="assets/logo-scsf.png" alt="Logo de la Sociedad Científica de San Fernando">
+          </span>
+          <span class="footer-logo">
+            <img src="assets/logo-cpa.png" alt="Logo del Comité Permanente Académico">
+          </span>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">Comandos copiados</div>
+
+  <div id="icons" hidden>
+    <svg id="icon-youtube" viewBox="0 0 24 24" fill="none">
+      <path d="M21.2 7.35a3 3 0 0 0-2.1-2.12C17.25 4.75 12 4.75 12 4.75s-5.25 0-7.1.48A3 3 0 0 0 2.8 7.35 31.1 31.1 0 0 0 2.3 12c0 1.58.16 3.18.5 4.65a3 3 0 0 0 2.1 2.12c1.85.48 7.1.48 7.1.48s5.25 0 7.1-.48a3 3 0 0 0 2.1-2.12c.34-1.47.5-3.07.5-4.65 0-1.58-.16-3.18-.5-4.65Z" fill="#1f1f1f"/>
+      <path d="m10.2 15.4 5.05-3.4-5.05-3.4v6.8Z" fill="#f4c430"/>
+    </svg>
+    <svg id="icon-checklist" viewBox="0 0 24 24" fill="none">
+      <path d="M7 3.5h10A2.5 2.5 0 0 1 19.5 6v12a2.5 2.5 0 0 1-2.5 2.5H7A2.5 2.5 0 0 1 4.5 18V6A2.5 2.5 0 0 1 7 3.5Z" stroke="currentColor" stroke-width="2"/>
+      <path d="m8 11 2 2 4-4M8 16h7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <svg id="icon-tool" viewBox="0 0 24 24" fill="none">
+      <path d="M14.7 6.3a4.4 4.4 0 0 0 5.05 5.05l-7.9 7.9a3 3 0 0 1-4.25-4.24l7.1-8.71Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M8.5 15.5 4 11l3-3 4.5 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <svg id="icon-guide" viewBox="0 0 24 24" fill="none">
+      <path d="M5 4.5h9.5A3.5 3.5 0 0 1 18 8v11.5H8A3 3 0 0 1 5 16.5v-12Z" stroke="currentColor" stroke-width="2"/>
+      <path d="M8 8h6M8 12h7M8 16h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+    <svg id="icon-code" viewBox="0 0 24 24" fill="none">
+      <path d="m8.5 8-4 4 4 4M15.5 8l4 4-4 4M13.5 5.5l-3 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <svg id="icon-external" viewBox="0 0 24 24" fill="none">
+      <path d="M14 5h5v5M19 5l-9 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M11 6H7a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+    <svg id="icon-copy" viewBox="0 0 24 24" fill="none">
+      <path d="M9 9h9v11H9z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M6 15H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+  </div>
+
+  <script>
+    const sections = [
+      {
+        id: "principios-basicos",
+        title: "Principios básicos",
+        groups: [
+          {
+            title: "Recursos introductorios",
+            resources: [
+              {
+                name: "Redacción científica",
+                url: "https://www.youtube.com/watch?v=E7j-oRcp6fw&list=PL1Lu7aqVvySXCrjaDf0QvOKo7eW6k2Gep",
+                type: "Curso / Tutorial",
+                description: "Recurso introductorio para fortalecer la escritura académica y científica.",
+                icon: "youtube"
+              },
+              {
+                name: "Lectura crítica",
+                url: "https://www.youtube.com/watch?v=LXQxMWgfMLc&list=PLn2cLcAmnBO2b68bfUsD9x1n056161lZQ",
+                type: "Curso / Tutorial",
+                description: "Recurso para desarrollar análisis crítico de artículos científicos.",
+                icon: "youtube"
+              },
+              {
+                name: "Análisis estadístico con R",
+                url: "https://www.youtube.com/watch?v=gmNVoSoA74A&list=PLn2cLcAmnBO1haD1jlz2VOlili7jPU_qd",
+                type: "Curso / Herramienta",
+                description: "Introducción al uso de R para análisis estadístico en investigación.",
+                icon: "code"
+              },
+              {
+                name: "Búsqueda bibliográfica",
+                url: "https://www.youtube.com/watch?v=SKr59bVfn0A&list=PLn2cLcAmnBO1xfmIJLbAsjQRqZq3HEpfD",
+                type: "Tutorial",
+                description: "Estrategias para realizar búsquedas bibliográficas académicas.",
+                icon: "youtube"
+              },
+              {
+                name: "Gestor de referencias bibliográficas",
+                url: "https://www.youtube.com/watch?v=JhXieAtW6AA&list=PLn2cLcAmnBO018mc8lipxZEV21AfnKak3",
+                type: "Tutorial",
+                description: "Recurso para aprender a organizar citas y referencias bibliográficas.",
+                icon: "guide"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: "reportes-series-caso",
+        title: "Reportes y series de caso",
+        groups: [
+          {
+            title: "Herramientas",
+            resources: [
+              {
+                name: "CARE",
+                url: "https://www.care-statement.org/downloads",
+                type: "Checklist",
+                description: "Guías y checklist para reportes de caso.",
+                icon: "checklist"
+              },
+              {
+                name: "JBI",
+                url: "https://jbi.global/critical-appraisal-tools",
+                type: "Herramienta",
+                description: "Herramientas de evaluación crítica para reportes y series de caso.",
+                icon: "tool"
+              }
+            ]
+          },
+          {
+            title: "Tutoriales",
+            resources: [
+              {
+                name: "Introducción",
+                url: "https://www.youtube.com/watch?v=7NxSVj3RZMI",
+                type: "Tutorial",
+                description: "Introducción metodológica a reportes y series de caso.",
+                icon: "youtube"
+              },
+              {
+                name: "Curso de SCSF",
+                url: "https://www.youtube.com/playlist?list=PLWiRpvTfAiKC7lyYACymSED9u6gJIs0eG",
+                type: "Curso",
+                description: "Curso del SCSF sobre reportes de caso.",
+                icon: "youtube"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: "estudios-bibliometricos",
+        title: "Estudios bibliométricos",
+        groups: [
+          {
+            title: "Herramientas",
+            resources: [
+              {
+                name: "VOSviewer",
+                url: "https://www.vosviewer.com/",
+                type: "Herramienta",
+                description: "Software para construir y visualizar redes bibliométricas.",
+                icon: "tool"
+              },
+              {
+                name: "Bibliometrix",
+                url: "https://www.bibliometrix.org/home/index.php/download",
+                type: "Herramienta",
+                description: "Paquete de R para análisis bibliométrico y mapeo científico.",
+                icon: "code"
+              },
+              {
+                name: "RStudio / Biblioshiny",
+                type: "Comando R",
+                description: "Comandos para instalar Bibliometrix y abrir Biblioshiny en R.",
+                commands: ["install.packages(\"bibliometrix\")", "bibliometrix::biblioshiny()"],
+                icon: "code"
+              }
+            ]
+          },
+          {
+            title: "Tutoriales",
+            resources: [
+              {
+                name: "Tutorial Bibliometrix",
+                url: "https://www.youtube.com/watch?v=fzOOsu8m5vA",
+                type: "Tutorial",
+                description: "Tutorial para usar Bibliometrix y Biblioshiny.",
+                icon: "youtube"
+              },
+              {
+                name: "Tutorial VOSviewer",
+                url: "https://www.youtube.com/watch?v=cKPDo2_U0sY",
+                type: "Tutorial",
+                description: "Tutorial para análisis y visualización con VOSviewer.",
+                icon: "youtube"
+              },
+              {
+                name: "Curso SOCIMEP",
+                url: "https://www.youtube.com/watch?v=8qZ0Pb7mJfg&list=PLzcjWkMovjU_vFP1vuwkyutT7MVF2YCav",
+                type: "Curso",
+                description: "Curso de SOCIMEP sobre estudios bibliométricos.",
+                icon: "youtube"
+              },
+              {
+                name: "Recurso general",
+                url: "https://www.youtube.com/playlist?list=PLiOBAYiI6xJi603akiPU91f7pUVOsRgf5",
+                type: "Playlist",
+                description: "Lista general de recursos sobre bibliometría.",
+                icon: "youtube"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: "estudios-observacionales",
+        title: "Estudios observacionales",
+        groups: [
+          {
+            title: "Herramientas",
+            resources: [
+              {
+                name: "STROBE",
+                url: "https://www.strobe-statement.org/checklists/",
+                type: "Checklist",
+                description: "Checklist para mejorar el reporte de estudios observacionales.",
+                icon: "checklist"
+              },
+              {
+                name: "Guía para redacción",
+                url: "https://journals.plos.org/plosmedicine/article?id=10.1371/journal.pmed.0040297",
+                type: "Guía",
+                description: "Artículo guía para la redacción de estudios observacionales.",
+                icon: "guide"
+              }
+            ]
+          },
+          {
+            title: "Tutoriales",
+            resources: [
+              {
+                name: "Curso del NIH",
+                url: "https://ocreco.od.nih.gov/courses/ippcr.html",
+                type: "Curso",
+                description: "Curso del NIH sobre principios y práctica de investigación clínica.",
+                icon: "guide"
+              },
+              {
+                name: "Curso SOCIMEP 1",
+                url: "https://www.youtube.com/playlist?list=PLzcjWkMovjU8zTC-jOpmY-8gDzpm9WrIB",
+                type: "Curso",
+                description: "Curso de SOCIMEP relacionado con estudios observacionales.",
+                icon: "youtube"
+              },
+              {
+                name: "Curso SOCIMEP 2",
+                url: "https://www.youtube.com/watch?v=5voaDQPMMfU&list=PLzcjWkMovjU9M6V3zp9YVShn2DVATh3kO",
+                type: "Curso",
+                description: "Segundo recurso audiovisual de SOCIMEP sobre estudios observacionales.",
+                icon: "youtube"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: "revisiones-sistematicas",
+        title: "Revisiones sistematicas",
+        groups: [
+          {
+            title: "Herramientas",
+            resources: [
+              {
+                name: "PRISMA",
+                url: "https://www.prisma-statement.org/prisma-2020-checklist",
+                type: "Checklist",
+                description: "Checklist PRISMA 2020 para revisiones sistemáticas.",
+                icon: "checklist"
+              },
+              {
+                name: "JBI Manual",
+                url: "https://jbi-global-wiki.refined.site/space/MANUAL",
+                type: "Manual",
+                description: "Manual de JBI para síntesis de evidencia.",
+                icon: "guide"
+              },
+              {
+                name: "Rayyan",
+                url: "https://www.rayyan.ai/",
+                type: "Herramienta",
+                description: "Herramienta para cribado y selección de estudios en revisiones sistemáticas.",
+                icon: "tool"
+              }
+            ]
+          },
+          {
+            title: "Tutoriales",
+            resources: [
+              {
+                name: "Curso de Cochrane",
+                url: "https://www.cochrane.org/learn/courses-and-resources/interactive-learning",
+                type: "Curso",
+                description: "Curso interactivo de Cochrane sobre revisiones sistemáticas.",
+                icon: "guide"
+              },
+              {
+                name: "Curso de SCSF",
+                url: "https://www.youtube.com/playlist?list=PLWiRpvTfAiKBUM5OZ7R6jC4vN89-tqD0H",
+                type: "Curso",
+                description: "Curso del SCSF sobre revisiones sistemáticas.",
+                icon: "youtube"
+              }
+            ]
+          }
+        ]
+      }
+    ];
+
+    const filters = [
+      { label: "Todos", value: "todos" },
+      { label: "Herramientas", value: "herramienta" },
+      { label: "Tutoriales", value: "tutorial" },
+      { label: "Cursos", value: "curso" },
+      { label: "Checklist", value: "checklist" },
+      { label: "Manuales", value: "manual" },
+      { label: "Guías", value: "guia" },
+      { label: "Playlists", value: "playlist" }
+    ];
+
+    const state = {
+      activeSection: sections[0].id,
+      activeFilter: "todos",
+      query: ""
+    };
+
+    const sectionNav = document.querySelector("#sectionNav");
+    const filterBar = document.querySelector("#filterBar");
+    const searchInput = document.querySelector("#searchInput");
+    const resourceStage = document.querySelector("#resourceStage");
+    const emptyState = document.querySelector("#emptyState");
+    const totalResources = document.querySelector("#totalResources");
+    const toast = document.querySelector("#toast");
+
+    const allResources = sections.flatMap((section) =>
+      section.groups.flatMap((group) =>
+        group.resources.map((resource) => ({ ...resource, section: section.title, group: group.title }))
+      )
+    );
+
+    totalResources.textContent = allResources.length;
+
+    function normalizeText(value) {
+      return value
+        .toString()
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
+    }
+
+    function resourceMatches(resource) {
+      const query = normalizeText(state.query.trim());
+      const filter = state.activeFilter;
+      const searchable = normalizeText(`${resource.name} ${resource.type} ${resource.description} ${resource.section} ${resource.group}`);
+      const matchesSearch = query === "" || searchable.includes(query);
+      const matchesFilter = filter === "todos" || normalizeText(resource.type).includes(filter);
+      return matchesSearch && matchesFilter;
+    }
+
+    function iconSvg(name) {
+      const icon = document.querySelector(`#icon-${name}`) || document.querySelector("#icon-tool");
+      return icon.outerHTML.replace(`id="icon-${name}"`, "");
+    }
+
+    function externalIcon() {
+      return iconSvg("external");
+    }
+
+    function copyIcon() {
+      return iconSvg("copy");
+    }
+
+    function createResourceCard(resource, index) {
+      const article = document.createElement("article");
+      article.className = `resource-card${resource.commands ? " code-card" : ""}`;
+      article.style.animationDelay = `${Math.min(index * 35, 210)}ms`;
+
+      const top = document.createElement("div");
+      top.className = "card-top";
+
+      const mark = document.createElement("div");
+      mark.className = "resource-mark";
+      mark.setAttribute("aria-hidden", "true");
+      mark.innerHTML = iconSvg(resource.icon);
+
+      const chip = document.createElement("span");
+      chip.className = "type-chip";
+      chip.textContent = resource.type;
+
+      top.append(mark, chip);
+
+      const title = document.createElement("h3");
+      title.textContent = resource.name;
+
+      const description = document.createElement("p");
+      description.textContent = resource.description;
+
+      article.append(top, title, description);
+
+      if (resource.commands) {
+        const code = document.createElement("pre");
+        code.className = "code-block";
+        code.textContent = resource.commands.join("\n");
+        article.append(code);
+      }
+
+      const actions = document.createElement("div");
+      actions.className = "card-actions";
+
+      if (resource.commands) {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "copy-button";
+        button.dataset.commands = resource.commands.join("\n");
+        button.innerHTML = `${copyIcon()} Copiar comandos`;
+        actions.append(button);
+      } else {
+        const link = document.createElement("a");
+        link.className = "resource-button";
+        link.href = resource.url;
+        link.target = "_blank";
+        link.rel = "noopener";
+        link.innerHTML = `Abrir recurso ${externalIcon()}`;
+        actions.append(link);
+      }
+
+      article.append(actions);
+      return article;
+    }
+
+    function renderNavigation() {
+      sectionNav.innerHTML = "";
+      sections.forEach((section) => {
+        const count = section.groups.reduce((sum, group) => sum + group.resources.length, 0);
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = `nav-button${section.id === state.activeSection ? " active" : ""}`;
+        button.textContent = `${section.title} (${count})`;
+        button.addEventListener("click", () => {
+          state.activeSection = section.id;
+          render();
+        });
+        sectionNav.append(button);
+      });
+    }
+
+    function renderFilters() {
+      filterBar.innerHTML = "";
+      filters.forEach((filter) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = `filter-button${filter.value === state.activeFilter ? " active" : ""}`;
+        button.textContent = filter.label;
+        button.addEventListener("click", () => {
+          state.activeFilter = filter.value;
+          render();
+        });
+        filterBar.append(button);
+      });
+    }
+
+    function renderSection() {
+      const section = sections.find((item) => item.id === state.activeSection);
+      resourceStage.innerHTML = "";
+      resourceStage.style.animation = "none";
+      resourceStage.offsetHeight;
+      resourceStage.style.animation = "";
+
+      const filteredGroups = section.groups
+        .map((group) => ({
+          ...group,
+          resources: group.resources.map((resource) => ({ ...resource, section: section.title, group: group.title })).filter(resourceMatches)
+        }))
+        .filter((group) => group.resources.length > 0);
+
+      const visibleCount = filteredGroups.reduce((sum, group) => sum + group.resources.length, 0);
+      emptyState.classList.toggle("show", visibleCount === 0);
+
+      const header = document.createElement("header");
+      header.className = "section-header";
+      header.innerHTML = `
+        <div>
+          <p class="section-eyebrow">Recursos</p>
+          <h2 class="section-title">${section.title}</h2>
+          <p class="section-count">${visibleCount} recurso${visibleCount === 1 ? "" : "s"} visible${visibleCount === 1 ? "" : "s"}</p>
+        </div>
+        <span class="resource-band">RECURSOS</span>
+      `;
+      resourceStage.append(header);
+
+      filteredGroups.forEach((group) => {
+        const groupSection = document.createElement("section");
+        groupSection.className = "group";
+
+        const title = document.createElement("h3");
+        title.className = "group-title";
+        title.textContent = group.title;
+
+        const grid = document.createElement("div");
+        grid.className = "resource-grid";
+        group.resources.forEach((resource, index) => {
+          grid.append(createResourceCard(resource, index));
+        });
+
+        groupSection.append(title, grid);
+        resourceStage.append(groupSection);
+      });
+    }
+
+    function render() {
+      renderNavigation();
+      renderFilters();
+      renderSection();
+    }
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add("show");
+      window.clearTimeout(showToast.timeout);
+      showToast.timeout = window.setTimeout(() => toast.classList.remove("show"), 1800);
+    }
+
+    async function copyText(text) {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+        return;
+      }
+
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      textarea.setAttribute("readonly", "");
+      textarea.style.position = "fixed";
+      textarea.style.opacity = "0";
+      document.body.append(textarea);
+      textarea.select();
+      document.execCommand("copy");
+      textarea.remove();
+    }
+
+    searchInput.addEventListener("input", (event) => {
+      state.query = event.target.value;
+      renderSection();
+    });
+
+    document.addEventListener("click", async (event) => {
+      const copyButton = event.target.closest(".copy-button");
+      if (!copyButton) return;
+
+      try {
+        await copyText(copyButton.dataset.commands);
+        showToast("Comandos copiados");
+      } catch (error) {
+        showToast("No se pudo copiar");
+      }
+    });
+
+    render();
+  </script>
+</body>
+</html>
