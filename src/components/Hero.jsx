@@ -9,7 +9,7 @@ const heroStations = [
   ['estacion-05', '05', 'Revisiones'],
 ]
 
-function Hero({ totalResources, visibleStationIds = heroStations.map(([id]) => id) }) {
+function Hero({ visibleStationIds = heroStations.map(([id]) => id) }) {
   const displayedHeroStations = useMemo(() => {
     if (!visibleStationIds.length) return heroStations
     return heroStations.filter(([id]) => visibleStationIds.includes(id))
@@ -73,7 +73,7 @@ function Hero({ totalResources, visibleStationIds = heroStations.map(([id]) => i
           <p className="mt-2 max-w-2xl text-sm leading-5 text-coal/72 sm:mt-3 sm:text-base sm:leading-6">
             Un recorrido progresivo para aprender, producir y publicar investigación científica.
           </p>
-          <div className="mt-4 flex flex-wrap items-center gap-2 sm:mt-7 sm:gap-3">
+          <div className="mt-4 flex items-center sm:mt-7">
             <a
               href="#ruta"
               className="inline-flex items-center gap-2 rounded-full bg-ink px-4 py-2.5 text-sm font-bold text-white shadow-soft transition hover:-translate-y-0.5 hover:bg-coal focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2 sm:px-5 sm:py-3"
@@ -81,9 +81,6 @@ function Hero({ totalResources, visibleStationIds = heroStations.map(([id]) => i
               Recorrer estaciones
               <ArrowDown size={16} aria-hidden="true" />
             </a>
-            <span className="rounded-full border border-gold/25 bg-white/80 px-3 py-2.5 text-sm font-bold text-coal shadow-soft sm:px-4 sm:py-3">
-              {totalResources} recursos curados
-            </span>
           </div>
         </div>
 
